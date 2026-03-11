@@ -3,17 +3,19 @@ FROM node:18-alpine
 
 WORKDIR /usr/src/app
 
-# copy backend package manifests and install deps (ignore lifecycle scripts)
-COPY backend/package*.json ./
+# 1) copy package manifests from the build context root (if Dockerfile used at backend folder, context is repo root)
+COPY package*.json ./
+
+# 2) install dependencies but ignore lifecycle scripts (postinstall)
 RUN npm install --no-audit --no-fund --ignore-scripts
 
-# copy backend source (tsconfig + src)
-COPY backend/ ./
+# 3) copy everything from the build context into the container working dir
+COPY . .
 
-# build
+# 4) build TypeScript now that tsconfig.json and src/ exist
 RUN npm run build
 
-# reduce image size
+# 5) remove dev deps to shrink image (optional)
 RUN npm prune --production
 
 EXPOSE 4000
