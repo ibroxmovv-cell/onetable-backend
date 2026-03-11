@@ -2,109 +2,19 @@
 "name": "onetable-backend",
 "version": "0.1.0",
 "private": true,
-"scripts": {
-
-"build": "nest build",
-"start": "node dist/main.js",
-"start:dev": "nest start --watch",
-"lint": "eslint '{src,test}/**/*.ts' --fix",
-"test": "jest",
-"postinstall": "npm run build"
-},
-"dependencies": {
-
-"@nestjs/common": "^9.0.0",
-"@nestjs/core": "^9.0.0",
-"@nestjs/platform-express": "^9.0.0",
-"@nestjs/config": "^2.2.0",
-"@nestjs/jwt": "^9.0.0",
-"@nestjs/passport": "^9.0.0",
-"class-transformer": "^0.5.1",
-"class-validator": "^0.14.0",
-"argon2": "^0.30.0",
-"dotenv": "^16.0.0",
-"ioredis": "^5.3.2",
-"jsonwebtoken": "^9.0.0",
-"pg": "^8.10.0",
-"reflect-metadata": "^0.1.13",
-"stripe": "^11.17.0",
-"typeorm": "^0.3.17",
-"uuid": "^9.0.0"
-},
-"devDependencies": {
-
-"@nestjs/cli": "^9.0.0",
-"@nestjs/schematics": "^9.0.0",
-"@nestjs/testing": "^9.0.0",
-"@types/express": "^4.17.17",
-"@types/jest": "^29.4.0",
-"@types/node": "^18.15.3",
-"eslint": "^8.35.0",
-"jest": "^29.4.0",
-"ts-jest": "^29.0.5",
-"ts-node": "^10.9.1",
-"typescript": "^4.9.5"
-}
-}
-
-(Eslatma: yuqoridagi JSON to‘g‘ri formatlangan — iloji bo‘lsa aynan shu faylni joylashtiring.)
-
-Dockerfile (agar Railway Dockerfile builder ishlatayotgan bo‘lsa)
-backend/Dockerfile — nusxa qilib qo‘ying:
-FROM node:18-alpine
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm ci --silent
-COPY . .
-RUN npm run build
-EXPOSE 4000
-CMD ["node", "dist/main.js"]
-Lokal test — commit qilishdan oldin quyidagilarni bajarib ko‘ring (mahalliy mashinangizda):
-cd backend
-npm ci
-npm run build
-ls -la dist
-node dist/main.js # server ishga tushsa OK
-Agar localda build xato bersa — build logni shu yerga yuboring.
-
-GitHub → Railway ishlash oqimi:
-package.json va Dockerfile ni to‘g‘rilab commit & push qiling.
-Railway deploy logs ni kuzating: Build bosqichi muvaffaqiyatli bo‘lishi kerak.
-Agar Railway Dockerfile builder ishlatsa, Railway Settings → Builder → Dockerfile Path: backend/Dockerfile bo‘lishi va Use Metal Build Environment mos bo‘lishi kerak (odatda default ok).
-Agar siz package.json da kichik o‘zgartirish qilmoqchi bo‘lmasangiz, lekin hozirgi repo package.json ni aniqlashni xohlasangiz — shu yerga package.json kontentini (whole file) yuboring, men tekshirib xatoni topib tuzataman.
-Agar build davomida boshqa xatolar paydo bo‘lsa (masalan TypeScript error), Railway logni shu yerga qo‘ying — men aniq cause va fixni bergan bo‘laman.
-Xulosa va keyingi qadamlar:
-
-Agar hozir darhol istasangiz, men to‘liq yangilangan backend/package.json va backend/Dockerfile fayllarini berdim — siz ularni repo-ga joylab push qiling. Men bu yerda qolaman va deploy logni birga tekshirib chiqaman.
-Agar xozir package.json kontentini yuborsangiz men avtomatik analiz qilib xatoni ko‘rsataman va to‘g‘ri versiyasini taqdim etaman.
-Qanday qilamiz — siz package.json faylini hozir paste qilib yuborasizmi yoki men yuborgan yangisini bevosita o‘rniga qo‘yib push qilasizmi? (Javob: "1" — men hozir yangisini qo‘yaman; "2" — package.json kontentini yuboraman).
-
-package jsonga ideal kod yozib ber hatolar chiqib jonga tegdi
-
-Albatta — mana siz uchun toza, valid va ishlaydigan backend/package.json (NestJS) fayli. Ushbu versiya:
-
-TypeScriptni build qiladi (npm run build),
-postinstall orqali deploy muhitida (Railway va boshq.) avtomatik build bajaradi,
-start script node dist/main.js ga yo‘naltirilgan,
-kerakli dependencies va devDependencies kiritilgan.
-Faylni to‘liq nusxa ko‘chirib backend/package.json ga yozing (eslatma: faylda hech qanday comment yoki ortiqcha vergul bo‘lmasligi kerak):
-
-{
-"name": "onetable-backend",
-"version": "0.1.0",
-"private": true,
 "engines": {
 
 "node": ">=18"
 },
+"main": "dist/main.js",
 "scripts": {
 
 "build": "nest build",
 "start": "node dist/main.js",
 "start:dev": "nest start --watch",
-"lint": "eslint '{src,test}/**/*.ts' --fix",
+"lint": "eslint \"{src,test}/**/*.ts\" --fix",
 "format": "prettier --write \"src/**/*.ts\"",
-"test": "jest",
+"test": "jest --runInBand",
 "postinstall": "npm run build"
 },
 "dependencies": {
