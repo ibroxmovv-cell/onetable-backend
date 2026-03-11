@@ -1,0 +1,15 @@
+{
+  "search_placeholder": "Search restaurants, cuisines, or location",
+  "reserve": "Reserve",
+  "favorites": "Favorites",
+  "recommended_for_you": "Recommended for You",
+  "popular_tonight": "Popular Tonight",
+  "restaurants_near_you": "Restaurants Near You",
+  "best_for_tourists": "Best Restaurants for Tourists",
+  "price_$": "$",
+  "price_$$": "$$",
+  "price_$$$": "$$$",
+  "open_now": "Open now",
+  "book_for": "Book for",
+  "deposit_amount": "Reservation deposit"
+}
