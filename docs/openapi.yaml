@@ -1,0 +1,104 @@
+openapi: 3.0.3
+info:
+  title: OneTable API
+  version: 0.1.0
+paths:
+  /api/v1/auth/register:
+    post:
+      summary: Register user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                name:
+                  type: string
+                role:
+                  type: string
+      responses:
+        '201':
+          description: Created
+  /api/v1/auth/login:
+    post:
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/restaurants:
+    get:
+      summary: List restaurants
+      parameters:
+        - in: query
+          name: q
+          schema:
+            type: string
+        - in: query
+          name: cuisine
+          schema:
+            type: string
+        - in: query
+          name: price
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+  /api/v1/reservations:
+    post:
+      summary: Create reservation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                restaurant_id:
+                  type: string
+                date:
+                  type: string
+                start_time:
+                  type: string
+                guests:
+                  type: integer
+      responses:
+        '201':
+          description: Created
+components:
+  schemas:
+    Restaurant:
+      type: object
+      properties:
+        name_en:
+          type: string
+        name_ru:
+          type: string
+        name_uz:
+          type: string
+        address:
+          type: string
+        lat:
+          type: number
+        lng:
+          type: number
+        cuisine:
+          type: array
+          items:
+            type: string
