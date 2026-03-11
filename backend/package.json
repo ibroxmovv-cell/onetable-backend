@@ -28,6 +28,7 @@
     "stripe": "^11.17.0",
     "typeorm": "^0.3.17",
     "uuid": "^9.0.0"
+  "dependencies": {"helmet": "^7.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
