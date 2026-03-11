@@ -2,19 +2,20 @@ FROM node:18-alpine
 
 WORKDIR /usr/src/app
 
-# 1) copy only package files to leverage Docker cache for dependencies
+# 1) copy package manifests for caching
 COPY package*.json ./
 
-# 2) install dependencies (will run postinstall if exists, so we avoid that by using --ignore-scripts)
-# Use --ignore-scripts to prevent postinstall from running before source is copied.
-RUN npm install --ignore-scripts
-# 3) copy rest of the source (tsconfig.json, src/, etc.)
+# 2) install dependencies but DO NOT run lifecycle scripts yet
+# Use npm install because package-lock.json may be absent in repo
+RUN npm install --no-audit --no-fund --ignore-scripts
+
+# 3) copy the rest of the source (tsconfig.json, src/, etc.)
 COPY . .
 
-# 4) run the build now that all source files (tsconfig.json) are present
+# 4) run the TypeScript build now that sources are present
 RUN npm run build
 
-# 5) optionally run npm prune --production to reduce size
+# 5) remove dev dependencies to shrink image (optional)
 RUN npm prune --production
 
 EXPOSE 4000
