@@ -7,7 +7,7 @@ import * as express from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(helmet());
+  app.use(require('helmet')());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.use(json({ limit: '10mb' }));
   const server = app.getHttpAdapter().getInstance() as express.Express;
