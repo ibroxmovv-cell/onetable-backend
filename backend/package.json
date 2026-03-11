@@ -27,8 +27,8 @@
     "reflect-metadata": "^0.1.13",
     "stripe": "^11.17.0",
     "typeorm": "^0.3.17",
-    "uuid": "^9.0.0"
-  "helmet": "^7.0.0"
+    "uuid": "^9.0.0",
+    "helmet": "^7.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
