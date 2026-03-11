@@ -7,8 +7,7 @@ COPY package*.json ./
 
 # 2) install dependencies (will run postinstall if exists, so we avoid that by using --ignore-scripts)
 # Use --ignore-scripts to prevent postinstall from running before source is copied.
-RUN npm ci --ignore-scripts
-
+RUN npm install --ignore-scripts
 # 3) copy rest of the source (tsconfig.json, src/, etc.)
 COPY . .
 
