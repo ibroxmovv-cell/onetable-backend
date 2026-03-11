@@ -1,0 +1,12 @@
+{
+  "name": "onetable-backend",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
